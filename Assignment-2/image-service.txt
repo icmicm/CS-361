@@ -1,1 +1,1 @@
-/Users/ianmcmillan/PycharmProjects/CS361/cs361/1.jpg
+/images/26.jpg
