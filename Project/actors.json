@@ -1,0 +1,402 @@
+[
+ {
+   "Position": 1,
+   "Name": "Meryl Streep"
+ },
+ {
+   "Position": 2,
+   "Name": "Denzel Washington"
+ },
+ {
+   "Position": 3,
+   "Name": "Leonardo DiCaprio"
+ },
+ {
+   "Position": 4,
+   "Name": "Viola Davis"
+ },
+ {
+   "Position": 5,
+   "Name": "Tom Hardy"
+ },
+ {
+   "Position": 6,
+   "Name": "Frances McDormand"
+ },
+ {
+   "Position": 7,
+   "Name": "Joaquin Phoenix"
+ },
+ {
+   "Position": 8,
+   "Name": "Amy Adams"
+ },
+ {
+   "Position": 9,
+   "Name": "Jake Gyllenhaal"
+ },
+ {
+   "Position": 10,
+   "Name": "Oscar Isaac"
+ },
+ {
+   "Position": 11,
+   "Name": "Ryan Gosling"
+ },
+ {
+   "Position": 12,
+   "Name": "Cate Blanchett"
+ },
+ {
+   "Position": 13,
+   "Name": "Gary Oldman"
+ },
+ {
+   "Position": 14,
+   "Name": "Christian Bale"
+ },
+ {
+   "Position": 15,
+   "Name": "Jessica Chastain"
+ },
+ {
+   "Position": 16,
+   "Name": "Hugh Jackman"
+ },
+ {
+   "Position": 17,
+   "Name": "Riz Ahmed"
+ },
+ {
+   "Position": 18,
+   "Name": "Michael Fassbender"
+ },
+ {
+   "Position": 19,
+   "Name": "Emma Stone"
+ },
+ {
+   "Position": 20,
+   "Name": "Steve Carell"
+ },
+ {
+   "Position": 21,
+   "Name": "Mahershala Ali"
+ },
+ {
+   "Position": 22,
+   "Name": "Annette Bening"
+ },
+ {
+   "Position": 23,
+   "Name": "Saoirse Ronan"
+ },
+ {
+   "Position": 24,
+   "Name": "Lupita Nyong'o"
+ },
+ {
+   "Position": 25,
+   "Name": "Tom Hanks"
+ },
+ {
+   "Position": 26,
+   "Name": "Mark Rylance"
+ },
+ {
+   "Position": 27,
+   "Name": "Sterling K. Brown"
+ },
+ {
+   "Position": 28,
+   "Name": "Javier Bardem"
+ },
+ {
+   "Position": 29,
+   "Name": "Ben Mendelsohn"
+ },
+ {
+   "Position": 30,
+   "Name": "Natalie Portman"
+ },
+ {
+   "Position": 31,
+   "Name": "Idris Elba"
+ },
+ {
+   "Position": 32,
+   "Name": "Michael B. Jordan"
+ },
+ {
+   "Position": 33,
+   "Name": "Benicio Del Toro"
+ },
+ {
+   "Position": 34,
+   "Name": "Julianne Moore"
+ },
+ {
+   "Position": 35,
+   "Name": "Octavia Spencer"
+ },
+ {
+   "Position": 36,
+   "Name": "Brie Larson"
+ },
+ {
+   "Position": 37,
+   "Name": "Jennifer Lawrence"
+ },
+ {
+   "Position": 38,
+   "Name": "Ralph Fiennes"
+ },
+ {
+   "Position": 39,
+   "Name": "Michael Shannon"
+ },
+ {
+   "Position": 40,
+   "Name": "Margot Robbie"
+ },
+ {
+   "Position": 41,
+   "Name": "Woody Harrelson"
+ },
+ {
+   "Position": 42,
+   "Name": "Ben Mendelsohn"
+ },
+ {
+   "Position": 43,
+   "Name": "Nicole Kidman"
+ },
+ {
+   "Position": 44,
+   "Name": "Kyle Chandler"
+ },
+ {
+   "Position": 45,
+   "Name": "Charlize Theron"
+ },
+ {
+   "Position": 46,
+   "Name": "Andrew Garfield"
+ },
+ {
+   "Position": 47,
+   "Name": "David Oyelowo"
+ },
+ {
+   "Position": 48,
+   "Name": "Chiwetel Ejiofor"
+ },
+ {
+   "Position": 49,
+   "Name": "Claire Foy"
+ },
+ {
+   "Position": 50,
+   "Name": "Michael Stuhlbarg"
+ },
+ {
+   "Position": 51,
+   "Name": "Michelle Williams"
+ },
+ {
+   "Position": 52,
+   "Name": "Robert Downey Jr."
+ },
+ {
+   "Position": 53,
+   "Name": "Mark Ruffalo"
+ },
+ {
+   "Position": 54,
+   "Name": "Tatiana Maslany"
+ },
+ {
+   "Position": 55,
+   "Name": "Samuel L. Jackson"
+ },
+ {
+   "Position": 56,
+   "Name": "Alicia Vikander"
+ },
+ {
+   "Position": 57,
+   "Name": "Josh Brolin"
+ },
+ {
+   "Position": 58,
+   "Name": "Keri Russell"
+ },
+ {
+   "Position": 59,
+   "Name": "Carrie Coon"
+ },
+ {
+   "Position": 60,
+   "Name": "Joel Edgerton"
+ },
+ {
+   "Position": 61,
+   "Name": "Jesse Plemons"
+ },
+ {
+   "Position": 62,
+   "Name": "Naomie Harris"
+ },
+ {
+   "Position": 63,
+   "Name": "Kate Winslet"
+ },
+ {
+   "Position": 64,
+   "Name": "Sam Rockwell"
+ },
+ {
+   "Position": 65,
+   "Name": "Bradley Cooper"
+ },
+ {
+   "Position": 66,
+   "Name": "Michael Keaton"
+ },
+ {
+   "Position": 67,
+   "Name": "LaKeith Stanfield"
+ },
+ {
+   "Position": 68,
+   "Name": "Kumail Nanjiani"
+ },
+ {
+   "Position": 69,
+   "Name": "Tom Cruise"
+ },
+ {
+   "Position": 70,
+   "Name": "Chris Pine"
+ },
+ {
+   "Position": 71,
+   "Name": "Matt Damon"
+ },
+ {
+   "Position": 72,
+   "Name": "Robin Wright"
+ },
+ {
+   "Position": 73,
+   "Name": "Bryan Cranston"
+ },
+ {
+   "Position": 74,
+   "Name": "Bob Odenkirk"
+ },
+ {
+   "Position": 75,
+   "Name": "Sarah Paulson"
+ },
+ {
+   "Position": 76,
+   "Name": "Reese Witherspoon"
+ },
+ {
+   "Position": 77,
+   "Name": "Matthew Rhys"
+ },
+ {
+   "Position": 78,
+   "Name": "Martin Freeman"
+ },
+ {
+   "Position": 79,
+   "Name": "Marion Cotillard"
+ },
+ {
+   "Position": 80,
+   "Name": "Daniel Kaluuya"
+ },
+ {
+   "Position": 81,
+   "Name": "Benedict Cumberbatch"
+ },
+ {
+   "Position": 82,
+   "Name": "Gina Rodriguez"
+ },
+ {
+   "Position": 83,
+   "Name": "Will Smith"
+ },
+ {
+   "Position": 84,
+   "Name": "Tilda Swinton"
+ },
+ {
+   "Position": 85,
+   "Name": "Paul Dano"
+ },
+ {
+   "Position": 86,
+   "Name": "Jonah Hill"
+ },
+ {
+   "Position": 87,
+   "Name": "Ben Foster"
+ },
+ {
+   "Position": 88,
+   "Name": "Adam Driver"
+ },
+ {
+   "Position": 89,
+   "Name": "Rachel Weisz"
+ },
+ {
+   "Position": 90,
+   "Name": "Evan Rachel Wood"
+ },
+ {
+   "Position": 91,
+   "Name": "Jeffrey Wright"
+ },
+ {
+   "Position": 92,
+   "Name": "Tom Hiddleston"
+ },
+ {
+   "Position": 93,
+   "Name": "Hailee Steinfeld"
+ },
+ {
+   "Position": 94,
+   "Name": "Allison Janney"
+ },
+ {
+   "Position": 95,
+   "Name": "Taraji P. Henson"
+ },
+ {
+   "Position": 96,
+   "Name": "Tiffany Haddish"
+ },
+ {
+   "Position": 97,
+   "Name": "Timothée Chalamet"
+ },
+ {
+   "Position": 98,
+   "Name": "Lucas Hedges"
+ },
+ {
+   "Position": 99,
+   "Name": "Janelle Monáe"
+ },
+ {
+   "Position": 100,
+   "Name": "Letitia Wright"
+ }
+]
