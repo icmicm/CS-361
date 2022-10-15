@@ -36,13 +36,13 @@ def fetch_db():
 	return table_name, table_records
 """
 player = "Ian"
-novice_plays = 2
+novice_plays = 3
 novice_wins = 1
 intermediate_plays = 1
 intermediate_wins = 1
-master_plays = 1
+master_plays = 0
 master_wins = 0
-total_plays = 0
+total_plays = 4
 
 
 def clear_widgets(frame):
