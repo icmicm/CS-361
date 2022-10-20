@@ -3,7 +3,7 @@
 #   Binds REP socket to tcp://*:5555
 #   Expects b"Hello" from client, replies with b"World"
 #
-
+import json
 import time
 import zmq
 
@@ -13,11 +13,11 @@ socket.bind("tcp://*:5555")
 
 while True:
     #  Wait for next request from client
-    message = socket.recv()
+    message = socket.recv_string()
     print(f"Received request: {message}")
 
     #  Do some 'work'
     time.sleep(1)
 
     #  Send reply to client
-    socket.send(b"A message from CS36")
+    socket.send_string(json.dumps({"data": ["a", "b", "c"]}))
