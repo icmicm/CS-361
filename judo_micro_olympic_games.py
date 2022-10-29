@@ -15,7 +15,7 @@ scraper[2].loc[2, "Games"] = "1968 Mexico City details"
 
 
 # lowercase input from user
-req = {"country": "france"}
+req = {"olympic": "2020"}
 
 # hard coded list of table data
 tables = [["Men", "Extra Lightweight"],
@@ -39,11 +39,35 @@ medals = ["Gold", "Silver", "Bronze"]
 
 
 
-# country request section (need an if statement here based on the input
-country = []
+# olympic request section (need an if statement here based on the input
+olympic = []
 
 
 for table in range(len(scraper) - 3):
+    for row in range(len(scraper[table])):
+        game = scraper[table]["Games"][row].split(" ", 1)
+        year = game[0]
+        city = game[1].replace(" details", "")
+        if year == req["olympic"]:
+            if not olympic:
+                olympic.append({"city": city})
+            category = {"category": tables[table][1], "sex": tables[table][0]}
+            olympic.append(category)
+            for medal in medals:
+                cell = scraper[table][medal][row].split("\xa0")
+                olympic[len(olympic)-1][medal] = [cell[0], cell[1]]
+            cell = scraper[table]["Bronze"][row+1].split("\xa0")
+            olympic[len(olympic) - 1]["Bronze2"] = [cell[0], cell[1]]
+            break
+
+
+                #winners.append({"medal": medal, "name": name, "nationality": nationality})
+
+
+print(olympic)
+
+
+"""
     for medal in medals:
         for cell in range(len(scraper[table])):
             person = scraper[table][medal][cell]
@@ -66,4 +90,4 @@ for dictionary in country:
     if dictionary not in country_output:
         country_output.append(dictionary)
 print(country_output)
-
+"""

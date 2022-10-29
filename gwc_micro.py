@@ -5,16 +5,17 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 scraper = pd.read_html("https://en.wikipedia.org/wiki/List_of_Olympic_medalists_in_judo")
 
-# test2 = scraper[2]
-# test2.drop(2, inplace=True)
-# print(test2)
+# data cleaning
+scraper[2].loc[2, "Games"] = "1968 Mexico City details"
+
 # for i, table in enumerate(scraper):
 # print("******************************************************")
 # print(i)
 # print(table)
 
+
 # lowercase input from user
-req = {"country": "japan"}
+req = {"sex": "Women", "category": "Lightweight", "country": "Canada"}
 
 # hard coded list of table data
 tables = [["Men", "Extra Lightweight"],
@@ -36,35 +37,21 @@ tables = [["Men", "Extra Lightweight"],
 
 medals = ["Gold", "Silver", "Bronze"]
 
+
+
 # country request section (need an if statement here based on the input
-country = []
+fighters = []
+
+if req["sex"] == "Men":
+    del tables[8:16]
+elif req["sex"] == "Women":
+    del tables[0:8]
+
+if req["category"] is not None:
+    tables = [i for i in tables if i[1] == req["category"]]
+
+#if req["country"] is not None:
 
 
-# data cleaning
-scraper[2].drop(2, inplace=True)
-
-for medal in medals:
-    for person in scraper[2][medal]:
-        if person == "none awarded":
-            continue
-        else:
-            pers = person.split("\xa0")
-            if pers[1].lower() == req["country"]:
-                row_number = scraper[2][scraper[2][medal] == person].index[0]
-                print(row_number)
-                game = scraper[2]["Games"][row_number].split(" ", 1)
-                year = game[0]
-                city = game[1].replace(" details", "")
-                country.append({"name": pers[0], "sex": tables[2][0], "class": tables[2][1], "medal": medal, "year": year, "city": city})
-
-country_output = []
-for dictionary in country:
-    if dictionary not in country_output:
-        country_output.append(dictionary)
-
-print(country)
-print("*************************************************")
-print(country_output)
-dank = scraper[2]
-print(dank)
-
+print(fighters)
+print(scraper)
