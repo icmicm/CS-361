@@ -54,5 +54,4 @@ if req["category"] is not None:
 
 
 print(fighters)
-
 print(scraper)
