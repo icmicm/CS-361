@@ -94,12 +94,12 @@ When RECIEVING data, the data will be formated as follows:
     .
     .
     .
-   {'category': 'Heavyweight',
-   'sex': 'Women',
-   'Gold': ['Akira Sone ', 'Japan'],
-   'Silver': ['Idalys Ortiz ', 'Cuba'],
-   'Bronze': ['Iryna Kindzerska ', 'Azerbaijan'],
-   'Bronze2': ['Romane Dicko ', 'France']}]
+    {'category': 'Heavyweight',
+    'sex': 'Women',
+    'Gold': ['Akira Sone ', 'Japan'],
+    'Silver': ['Idalys Ortiz ', 'Cuba'],
+    'Bronze': ['Iryna Kindzerska ', 'Azerbaijan'],
+    'Bronze2': ['Romane Dicko ', 'France']}]
 
   
   Fighter search.
