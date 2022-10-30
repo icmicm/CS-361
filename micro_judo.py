@@ -202,4 +202,5 @@ while True:
         result = "sorry, wrong format"
 
     #  Send reply to client
+    print("Sending reply")
     socket.send_pyobj(result)
