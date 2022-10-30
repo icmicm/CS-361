@@ -121,4 +121,4 @@ When RECIEVING data, the data will be formated as follows:
     'bronze': []}]
     
 *****************************************************************************************
-![UML Sequence Diagram](Sequence diagram.png)
+![UML Sequence Diagram](Sequence_diagram.png)
