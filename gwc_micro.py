@@ -9,14 +9,8 @@ scraper = pd.read_html("https://en.wikipedia.org/wiki/List_of_Olympic_medalists_
 # data cleaning
 scraper[2].loc[2, "Games"] = "1968 Mexico City details"
 
-# for i, table in enumerate(scraper):
-# print("******************************************************")
-# print(i)
-# print(table)
-
-
 # lowercase input from user
-req = {"sex": "Women", "category": None, "country": "Canada"}
+req = {"sex": "Men", "category": "Lightweight", "country": "Japan"}
 
 # hard coded list of table data
 tables = [["Men", "Extra Lightweight"],
@@ -37,13 +31,6 @@ tables = [["Men", "Extra Lightweight"],
 
 medals = ["Gold", "Silver", "Bronze"]
 
-
-
-"""
-
-
-#if req["country"] is not None:
-"""
 
 
 class Person:
@@ -112,8 +99,21 @@ for table in range(start, end):
                             fighter.addMedals(None, game + " - " + category, None)
                         else:
                             fighter.addMedals(None, None, game + " - " + category)
+del fighters[0]
 
+if req["country"] is not None:
+    new_fighters = [x for x in fighters if x.origin == req["country"]]
 
-new_fighters = [x for x in fighters if x.origin == req["country"]]
-del new_fighters[0]
+for fighter in new_fighters:
+    new1_gold = list(set(fighter.gold))
+    new2_gold = [y for y in new1_gold if y is not None]
+    new1_silver = list(set(fighter.silver))
+    new2_silver = [y for y in new1_silver if y is not None]
+    new1_bronze = list(set(fighter.bronze))
+    new2_bronze = [y for y in new1_bronze if y is not None]
+
+    fighter.gold = new2_gold
+    fighter.silver = new2_silver
+    fighter.bronze = new2_bronze
+
 print(new_fighters)
