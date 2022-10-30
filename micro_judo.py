@@ -50,7 +50,7 @@ def country_search(req):
                 elif person == "none awarded":
                     continue
                 else:
-                    pers = person.split("\xa0")
+                    pers = person.split(" \xa0")
                     if pers[1].lower() == req["country"].lower():
                         game = scraper[table]["Games"][cell].split(" ", 1)
                         year = game[0]
@@ -79,9 +79,9 @@ def olympic_search(req):
                 category = {"category": tables[table][1], "sex": tables[table][0]}
                 olympic.append(category)
                 for medal in medals:
-                    cell = scraper[table][medal][row].split("\xa0")
+                    cell = scraper[table][medal][row].split(" \xa0")
                     olympic[len(olympic) - 1][medal] = [cell[0], cell[1]]
-                cell = scraper[table]["Bronze"][row + 1].split("\xa0")
+                cell = scraper[table]["Bronze"][row + 1].split(" \xa0")
                 olympic[len(olympic) - 1]["Bronze2"] = [cell[0], cell[1]]
                 break
     return olympic
@@ -128,7 +128,7 @@ def fighter_search(req):
         for row in range(len(scraper[table])):
             game = scraper[table]["Games"][row].replace(" details", "")
             for medal in medals:
-                cell = scraper[table][medal][row].split("\xa0")
+                cell = scraper[table][medal][row].split(" \xa0")
                 name = cell[0]
                 if name == "not included in the Olympic program":
                     continue
