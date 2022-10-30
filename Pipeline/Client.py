@@ -16,8 +16,9 @@ socket.connect("tcp://localhost:5555")
 
 #  request and wait for a response
 print(f"Sending request…")
-socket.send_string("A message from CS361")
+socket.send_pyobj({"sex": "Men", "category": "Lightweight", "origin": "Japan"})
 
 #  Get the reply.
-message = json.loads(socket.recv_string())
-print(f"Received reply [ {message} ]")
+message = socket.recv_pyobj()
+print(f"Received reply!")
+print(message)
