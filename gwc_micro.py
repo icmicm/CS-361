@@ -10,7 +10,7 @@ scraper = pd.read_html("https://en.wikipedia.org/wiki/List_of_Olympic_medalists_
 scraper[2].loc[2, "Games"] = "1968 Mexico City details"
 
 # lowercase input from user
-req = {"sex": "Men", "category": "Lightweight", "country": "Japan"}
+req = {"sex": "Men", "category": None, "country": None}
 
 # hard coded list of table data
 tables = [["Men", "Extra Lightweight"],
@@ -103,6 +103,8 @@ del fighters[0]
 
 if req["country"] is not None:
     new_fighters = [x for x in fighters if x.origin == req["country"]]
+else:
+    new_fighters = fighters
 
 for fighter in new_fighters:
     new1_gold = list(set(fighter.gold))
@@ -116,4 +118,8 @@ for fighter in new_fighters:
     fighter.silver = new2_silver
     fighter.bronze = new2_bronze
 
-print(new_fighters)
+final_fighters = []
+for fighter in new_fighters:
+    final_fighters.append({"name": fighter.name, "origin": fighter.origin, "sex": fighter.sex, "gold": fighter.gold, "silver": fighter.silver, "bronze": fighter.bronze})
+
+print(final_fighters)
