@@ -1,12 +1,12 @@
 from requests import get
 from bs4 import BeautifulSoup as Soup
 import pandas as pd
+import zmq
+import random
 
-"""
-https://www.imdb.com/search/title/?groups=top_1000&sort=user_rating,desc&count=250&start=0&ref_=adv_nxt
-https://www.imdb.com/search/title/?groups=top_1000&sort=user_rating,desc&count=100&start=201&ref_=adv_nxt
-url = get("https://www.imdb.com/search/title/?count=1000&groups=top_1000&sort=user_rating")
-"""
+context = zmq.Context()
+socket = context.socket(zmq.PAIR)
+socket.bind("tcp://*:5556")
 
 Title = []
 Year = []
@@ -37,6 +37,36 @@ for segment in ["0", "251", "501", "751"]:
                 "desc&count=250&start=" + segment + "&ref_=adv_nxt"))
 data = list(zip(Title, Year, Rating, Actors))
 
+
+
 df = pd.DataFrame(data, columns=["Title", "Year", "Rating", "Actors"])
 
-print(df)
+
+def get_movies(actor):
+    movies = []
+    for movie in data:
+        for person in movie[3]:
+            if person == actor:
+                movies.append([movie[0], movie[1], movie[2]])
+                continue
+    return movies
+
+
+def get_actors(movie):
+    for title in data:
+        if movie == title[0]:
+            return title[3]
+
+
+# Uses ZMQ to communicate with other services
+while True:
+    search = socket.recv_pyobj()
+    if "actor" == search[0]:
+        output = get_movies(search[1])
+    elif "movie" == search[0]:
+        output = get_actors(search[1])
+    elif "start" == search[0]:
+        title = data[random.randint(0, 50)]
+        output = [title[0], title[3]]
+    socket.send_pyobj(output)
+

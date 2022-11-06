@@ -5,45 +5,52 @@ import sqlite3
 from random import *
 import json
 import unidecode
+import zmq
 import time
 
+context = zmq.Context()
+socket = context.socket(zmq.PAIR)
+socket.connect("tcp://localhost:5557")
 
 with open("actors.json", "r") as f:
     actor_start = json.load(f)
 
 bg_colour = "#3d6466"
 
-"""
-def fetch_db():
-	# connect an sqlite database
-	connection = sqlite3.connect("data/recipes.db")
-	cursor = connection.cursor()
-
-	# fetch all the table names
-	cursor.execute("SELECT * FROM sqlite_schema WHERE type='table';")
-	all_tables = cursor.fetchall()
-
-	# choose random table idx
-	idx = random.randint(0, len(all_tables)-1)
-
-	# fetch records from table
-	table_name = all_tables[idx][1]
-	cursor.execute("SELECT * FROM " + table_name + ";")
-	table_records = cursor.fetchall()
-
-	connection.close()
-
-	return table_name, table_records
-"""
 player = "Ian"
-novice_plays = 3
-novice_wins = 1
-intermediate_plays = 1
-intermediate_wins = 1
+novice_plays = 0
+novice_wins = 0
+intermediate_plays = 0
+intermediate_wins = 0
 master_plays = 0
 master_wins = 0
-total_plays = 4
+total_plays = 0
 
+titles = []
+actors = []
+
+def get_movies(person, difficulty):
+    socket.send_pyobj(["actor", person])
+    movies = socket.recv_pyobj()
+    for movie in movies:
+        if movie in titles:
+            movies.remove(movie)
+            continue
+        else:
+            titles.append(movies[0])
+            return movies[0]
+
+
+def get_actor(movie, difficulty):
+    socket.send_pyobj(["movie", movie])
+    persons = socket.recv_pyobj()
+    for person in persons:
+        if person in actors:
+            persons.remove(person)
+            continue
+        else:
+            actors.append(persons[0])
+            return persons[0]
 
 def clear_widgets(frame):
     for widget in frame.winfo_children():
@@ -78,6 +85,7 @@ def answer_clicked(value, correct, difficulty, round):
 
 
 def load_frame1():
+
     clear_widgets(frame2)
     frame1.grid(row=0, column=0, sticky="nesw")
     frame1.tkraise()
@@ -126,6 +134,10 @@ def load_frame2(last_frame, name):
 
 
 def load_frame3(last_frame):
+    global titles
+    global actors
+    titles = []
+    actors = []
     clear_widgets(last_frame)
     frame3.tkraise()
     frame3.grid(row=0, column=0, sticky="nesw")
@@ -158,9 +170,10 @@ def load_frame3(last_frame):
     else:
         rb3_state = "normal"
     tk.Radiobutton(frame3, selectcolor=bg_colour, text="Novice", font=("TkMenuFont", 20), bg=bg_colour, fg="white",
-                   variable=difficulty, value="Novice", command=lambda: difficulty_clicked(difficulty.get())).grid(row=3, column=1,
-                                                                                                                   sticky=tk.W,
-                                                                                                                   padx=400)
+                   variable=difficulty, value="Novice", command=lambda: difficulty_clicked(difficulty.get())).grid(
+        row=3, column=1,
+        sticky=tk.W,
+        padx=400)
     tk.Radiobutton(frame3, selectcolor=bg_colour, text="Intermediate", font=("TkMenuFont", 20), bg=bg_colour,
                    fg="white", variable=difficulty, value="Intermediate", state=rb2_state,
                    command=lambda: difficulty_clicked(difficulty.get())).grid(row=4, column=1, sticky=tk.W, padx=400)
@@ -216,8 +229,7 @@ def load_frame4(last_frame, difficulty):
               "Clearly you are looking for a challenge.\n\n" \
               "The rules of the game have not changed,\n" \
               "however, in this mode we  will not give you the main character.\n\n" \
-              "Good Luck!" \
-
+              "Good Luck!"
 
     tk.Label(frame4, text=msg, bg=bg_colour, fg="white",
              font=("TkHeadingFont", 20)).grid(row=2, column=0, columnspan=3, pady=30)
@@ -229,6 +241,7 @@ def load_frame4(last_frame, difficulty):
     tk.Button(frame4, text="Choose Different Level", font=("TkHeadingFont", 14), bg="red", fg="white", cursor="hand2",
               activebackground="#badee2", activeforeground="black",
               command=lambda: load_frame3(frame4)).grid(row=4, column=1, pady=10)
+
 
 def load_frame5(last_frame, difficulty, round, person):
     clear_widgets(last_frame)
@@ -251,15 +264,26 @@ def load_frame5(last_frame, difficulty, round, person):
 
     if round == 1:
         person = unidecode.unidecode(actor_start[randint(0, 99)]["Name"])
+        socket.send_pyobj([person])
+        start_data = socket.recv_pyobj()
+        title = start_data[0]
+        socket.send_pyobj(["movie", title])
+        correct_answer = socket.recv_pyobj()
+        correct_answer.remove(person)
+        correct_answer = correct_answer[0]
+        titles.append(title)
+        actors.append(correct_answer)
+        actors.append(person)
+    else:
+        title = get_movies(person, difficulty)
+        correct_answer = get_actor(title, difficulty)
 
-    other_actors = ["correct_name"]
-
-    while len(other_actors) <= 3:
+    actor_answers = [correct_answer]
+    while len(actor_answers) <= 3:
         actor = unidecode.unidecode(actor_start[randint(0, 99)]["Name"])
-        if actor not in other_actors:
-            other_actors.append(actor)
-
-    shuffle(other_actors)
+        if actor not in actor_answers and actor not in actors:
+            actor_answers.append(actor)
+    shuffle(actor_answers)
 
     answer = tk.StringVar()
     answer.set(None)
@@ -279,17 +303,18 @@ def load_frame5(last_frame, difficulty, round, person):
     else:
         countdown(20)
 
-    tk.Label(frame5, text=person + " was in " + "Jurasic Park" + " with:", bg=bg_colour, fg="white",
+    tk.Label(frame5, text=person + " was in " + title + " with:", bg=bg_colour, fg="white",
              font=("TkHeadingFont", 20)).grid(row=3, column=0, columnspan=3, pady=30)
 
-
     x = 4
-    for text in other_actors:
+    for text in actor_answers:
         tk.Radiobutton(frame5, selectcolor=bg_colour, text=text, font=("TkMenuFont", 20), bg=bg_colour,
-                           fg="white", variable=answer, value=text,
-                           command=lambda: answer_clicked(answer.get(), "correct_name", difficulty, round)).grid(row=x, column=1, sticky=tk.W, padx=400)
+                       fg="white", variable=answer, value=text,
+                       command=lambda: answer_clicked(answer.get(), correct_answer, difficulty, round)).grid(row=x,
+                                                                                                             column=1,
+                                                                                                             sticky=tk.W,
+                                                                                                             padx=400)
         x += 1
-
 
 
 def load_frame6(last_frame, difficulty, outcome):
@@ -324,7 +349,7 @@ def load_frame6(last_frame, difficulty, outcome):
     tk.Label(frame6, text=player, bg=bg_colour, fg="red",
              font=("TkHeadingFont", 20)).grid(row=0, column=0, sticky=tk.W)
 
-    tk.Label(frame6, text="YOU " + outcome + ", " + player.upper() +"!", bg=bg_colour, fg="white",
+    tk.Label(frame6, text="YOU " + outcome + ", " + player.upper() + "!", bg=bg_colour, fg="white",
              font=("TkHeadingFont", 35)).grid(row=1, column=1, pady=30)
 
     tk.Label(frame6, text="Novice games played: " + str(novice_plays), bg=bg_colour, fg="white",
@@ -342,7 +367,8 @@ def load_frame6(last_frame, difficulty, outcome):
     tk.Label(frame6, text="Intermediate games won: " + str(intermediate_wins), bg=bg_colour, fg="white",
              font=("TkMenuFont", 12)).grid(row=3, column=1, pady=10)
 
-    tk.Label(frame6, text="Intermediate games lost: " + str(intermediate_plays - intermediate_wins), bg=bg_colour, fg="white",
+    tk.Label(frame6, text="Intermediate games lost: " + str(intermediate_plays - intermediate_wins), bg=bg_colour,
+             fg="white",
              font=("TkMenuFont", 12)).grid(row=4, column=1, pady=10)
 
     tk.Label(frame6, text="Master games played: " + str(master_plays), bg=bg_colour, fg="white",
@@ -361,6 +387,7 @@ def load_frame6(last_frame, difficulty, outcome):
 
     tk.Button(frame6, text="EXIT", font=("TkHeadingFont", 14), bg="red", fg="white", cursor="hand2",
               activebackground="#badee2", activeforeground="black", command=root.destroy).grid(row=6, column=1, pady=0)
+
 
 # initialize the app
 root = tk.Tk()
@@ -387,3 +414,21 @@ frame6 = tk.Frame(root, width=1000, height=600, bg=bg_colour)
 load_frame1()
 # run the app
 root.mainloop()
+
+"""
+def get_movies(actor, difficulty):
+    movies = []
+    for movie in data:
+        if difficulty is "Intermediate":
+            if float(movie[2]) >= 8.0:
+                continue
+        elif difficulty is "Master":
+            if int(movie[1]) > 1960:
+                continue
+        people = movie[3]
+        if difficulty is "Intermediate":
+            people = people[2:3]
+        for person in people:
+            if person is actor:
+                movies
+"""
