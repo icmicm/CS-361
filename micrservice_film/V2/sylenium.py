@@ -14,6 +14,7 @@ socket.bind("tcp://*:5557")
 
 options = Options()
 options.page_load_strategy = "none"
+# options.headless = True
 
 
 # selenium to navigate to actors page
@@ -24,7 +25,6 @@ def get_url_by_actor(actor):
     driver.find_element(By.NAME, "name").send_keys(actor)
     submit = driver.find_element(By.CLASS_NAME, "primary")
     submit.click()
-    driver.implicitly_wait(3)
     actor = driver.find_element(By.LINK_TEXT, actor)
     driver.implicitly_wait(3)
     actor.click()
