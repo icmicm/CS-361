@@ -1,4 +1,3 @@
-import random
 import tkinter as tk
 from PIL import ImageTk
 from random import *
@@ -27,7 +26,7 @@ player = ""
 novice_plays = 0
 novice_wins = 0
 intermediate_plays = 0
-intermediate_wins = 1
+intermediate_wins = 0
 master_plays = 0
 master_wins = 0
 total_plays = 0
@@ -145,7 +144,7 @@ def difficulty_clicked(value):
         grid_button("START!", 6, frame3, lambda: load_frame4(frame3, value), "green")
     # if the player has played this difficulty before, let them start the game
     else:
-        grid_button("START!", 6, frame3, lambda: load_frame5(frame3, value, 1, None), "green")
+        grid_button("START!", 6, frame3, lambda: load_frame5(frame3, value, 1, ""), "green")
 
 
 # defines the functionality of the SUBMIT button during the game.
@@ -210,7 +209,7 @@ def load_frame3(last_frame):
 
     # initialize the difficulty setting
     difficulty = tk.StringVar()
-    difficulty.set(None)
+    difficulty.set("")
 
     # enable or disable the radio buttons depending on if the user has beat the previous level
     if novice_wins == 0:
@@ -249,21 +248,21 @@ def load_frame4(last_frame, difficulty):
               "but the Actress/Actor will be the correct answer from the previous round!\n" \
               "If you finish all six rounds, you win.\n\n" \
               "Good Luck!"
-        grid_button("PLAY", 3, frame4, lambda: load_frame5(frame4, difficulty, 1, None), "green")
+        grid_button("PLAY", 3, frame4, lambda: load_frame5(frame4, difficulty, 1, ""), "green")
     elif difficulty == "Intermediate":
         msg = "The game play in this mode is identical to the \"Novice\" mode.\n" \
               "However, in this mode don't expect every movie to be a blockbuster hit,\n" \
               "we dont plan on giving you the main character,\n" \
               "and you will only have 15 seconds per round.\n\n" \
               "Good Luck!"
-        grid_button("PLAY", 3, frame4, lambda: load_frame5(frame4, difficulty, 1, None), "green")
+        grid_button("PLAY", 3, frame4, lambda: load_frame5(frame4, difficulty, 1, ""), "green")
     else:
         msg = "This is the hardest game mode!\n" \
               "Clearly you are looking for a challenge.\n\n" \
               "In this mode you still only have 15 seconds.\n" \
               "and we will focus on the oldies.\n\n" \
               "Good Luck!"
-        grid_button("PLAY", 3, frame4, lambda: load_frame5(frame4, difficulty, 1, None), "green")
+        grid_button("PLAY", 3, frame4, lambda: load_frame5(frame4, difficulty, 1, ""), "green")
 
     # display one of the above messages
     tk.Label(frame4, text=msg, bg=bg_colour, fg="white",
@@ -321,8 +320,6 @@ def load_frame5(last_frame, difficulty, level, person):
     else:
         film = get_movies(person, difficulty)
         correct_answer = get_actor(film, difficulty)
-    print(titles)
-    print(actors)
 
     # fill the wrong answers from a static list of actors
     actor_answers = [correct_answer]
@@ -351,7 +348,7 @@ def load_frame5(last_frame, difficulty, level, person):
 
     # initialize the answer variable
     answer = tk.StringVar()
-    answer.set(None)
+    answer.set("")
 
     # place the possible answers as radio buttons on the page
     x = 3

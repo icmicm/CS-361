@@ -14,7 +14,7 @@ socket.bind("tcp://*:5557")
 
 options = Options()
 options.page_load_strategy = "none"
-# options.headless = True
+options.headless = True
 
 
 # selenium to navigate to actors page
@@ -85,11 +85,15 @@ def scrape_actors(movie):
 # Uses ZMQ to communicate with other services
 while True:
     search = socket.recv_pyobj()
+    print("received:")
+    print(search)
     if "actor" == search[0]:
         output = scrape_movies(search[1])
     elif "movie" == search[0]:
         output = scrape_actors(search[1])
     else:
         output = scrape_movies(search[0])
+    print("returned:")
+    print(output)
     socket.send_pyobj(output)
 

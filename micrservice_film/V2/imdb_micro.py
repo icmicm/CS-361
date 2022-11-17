@@ -37,8 +37,6 @@ for segment in ["0", "251", "501", "751"]:
                 "desc&count=250&start=" + segment + "&ref_=adv_nxt"))
 data = list(zip(Title, Year, Rating, Actors))
 
-
-
 df = pd.DataFrame(data, columns=["Title", "Year", "Rating", "Actors"])
 
 
@@ -69,4 +67,3 @@ while True:
         title = data[random.randint(0, 50)]
         output = [title[0], title[3]]
     socket.send_pyobj(output)
-
